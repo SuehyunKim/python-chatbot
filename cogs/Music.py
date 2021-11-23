@@ -1,6 +1,7 @@
 import discord
 from discord.ext import commands
 from youtube_dl import YoutubeDL
+from .module.youtube import getUrl
 
 
 class Music(commands.Cog):
@@ -29,7 +30,7 @@ class Music(commands.Cog):
         await ctx.send(embed=embed)
 
     @commands.command(name='음악재생')
-    async def play_music(self, ctx, url):
+    async def play_music(self, ctx, *keywords):
         # 봇의 음성 채널 연결이 없으면
         if ctx.voice_client is None:
             # 명령어(ctx) 작성자(author)의 음성채널에 연결 상태(voice)
@@ -46,6 +47,11 @@ class Music(commands.Cog):
         elif ctx.voice_client.is_playing():
             # 현재 재생중인 음원을 종료
             ctx.voice_client.stop()
+
+        keyword = ' '.join(keywords)
+        # Youtube 검색 결과 url 얻어오기
+        url = getUrl(keyword)
+        # 영상 정보 제공
         await ctx.send(url)
         embed = discord.Embed(
             title='음악 재생', description='음악 재생을 준비하고 있어요. 잠시만 기다려 주세요!', color=discord.Color.red())
@@ -68,6 +74,33 @@ class Music(commands.Cog):
         embed = discord.Embed(
             title='음악 재생', description=f'{title} 재생을 시작할게요!', color=discord.Color.purple())
         await ctx.send(embed=embed)
+
+    @commands.command(name='음악종료')
+    async def quit_music(self, ctx):
+        voice = ctx.voice_client
+        if voice.is_connected():
+            await voice.disconnect()
+            embed = discord.Embed(
+                title='', description='음악 재생을 종료합니다.', color=discord.Color.red())
+            await ctx.send(embed=embed)
+
+    @commands.command(name='일시정지')
+    async def pause_music(self, ctx):
+        voice = ctx.voice_client
+        if voice.is_connected() and voice.is_playing():
+            voice.pause()
+            embed = discord.Embed(
+                title='', description='음악 재생을 일시정지합니다.', color=discord.Color.blue())
+            await ctx.send(embed=embed)
+
+    @commands.command(name='다시시작')
+    async def resume_music(self, ctx):
+        voice = ctx.voice_client
+        if voice.is_connected and voice.is_paused():
+            voice.resume()
+            embed = discord.Embed(
+                title='', description='멈춘 부분부터 음악을 재생합니다.', color=discord.Color.blue())
+            await ctx.send(embed=embed)
 
 
 def setup(client):
