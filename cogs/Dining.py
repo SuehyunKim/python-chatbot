@@ -12,7 +12,7 @@ class Dining(commands.Cog):
     async def on_ready(self):
         print("Dining Cog is Ready")
 
-    @commands.command(name="맛집")
+    @commands.command(name="맛집", description='맛집 검색 결과를 보여줍니다.')
     async def restaurant(self, ctx, *args):
         keyword = ' '.join(args)
         url = f'https://www.mangoplate.com/search/{keyword}'

@@ -29,7 +29,7 @@ class Music(commands.Cog):
         embed.set_image(url=data['thumbnail'])
         await ctx.send(embed=embed)
 
-    @commands.command(name='음악재생')
+    @commands.command(name='음악재생', description='유튜브에서 키워드를 검색해 음악을 재생합니다.')
     async def play_music(self, ctx, *keywords):
         # 봇의 음성 채널 연결이 없으면
         if ctx.voice_client is None:
@@ -75,7 +75,7 @@ class Music(commands.Cog):
             title='음악 재생', description=f'{title} 재생을 시작할게요!', color=discord.Color.purple())
         await ctx.send(embed=embed)
 
-    @commands.command(name='음악종료')
+    @commands.command(name='음악종료', description='현재 재생 중인 음악을 종료합니다.')
     async def quit_music(self, ctx):
         voice = ctx.voice_client
         if voice.is_connected():
@@ -84,7 +84,7 @@ class Music(commands.Cog):
                 title='', description='음악 재생을 종료합니다.', color=discord.Color.red())
             await ctx.send(embed=embed)
 
-    @commands.command(name='일시정지')
+    @commands.command(name='일시정지', description='현재 재생 중인 음악을 일시정지합니다.')
     async def pause_music(self, ctx):
         voice = ctx.voice_client
         if voice.is_connected() and voice.is_playing():
@@ -93,7 +93,7 @@ class Music(commands.Cog):
                 title='', description='음악 재생을 일시정지합니다.', color=discord.Color.blue())
             await ctx.send(embed=embed)
 
-    @commands.command(name='다시시작')
+    @commands.command(name='다시시작', description='일시정지된 음악을 재생합니다.')
     async def resume_music(self, ctx):
         voice = ctx.voice_client
         if voice.is_connected and voice.is_paused():

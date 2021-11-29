@@ -20,7 +20,7 @@ class Quiz(commands.Cog):
     async def on_ready(self):
         print("Quiz Cog is Ready")
 
-    @commands.command(name="퀴즈")
+    @commands.command(name="퀴즈", description='랜덤 퀴즈를 출력합니다.')
     async def quiz(self, ctx):
         problemList = list(self.quizDict.keys())
         problem = random.choice(problemList)

@@ -15,7 +15,7 @@ class Lunch(commands.Cog):
     async def on_ready(self):
         print("Lunch Cog is Ready")
 
-    @commands.command(name="점심추천")
+    @commands.command(name="점심추천", description='[None,한식,중식,일식,양식] 점심 메뉴를 추천받습니다.')
     async def recommend_lunch(self, ctx, arg=None):
         if arg == None:
             # categories : ['한식', '일식', ..]

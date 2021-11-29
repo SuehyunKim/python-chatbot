@@ -16,7 +16,7 @@ class Recommendation(commands.Cog):
     async def on_ready(self):
         print("Recommendation Cog is Ready")
 
-    @commands.command(name='점심맛집추천')
+    @commands.command(name='점심맛집추천', description='점심메뉴를 추천받은 뒤, 입력한 위치 근처의 맛집을 추천합니다.')
     async def recommend_restaurant(self, ctx):
         def checkMessage(message):
             return message.author == ctx.author and message.channel == ctx.channel

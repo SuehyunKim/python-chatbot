@@ -12,8 +12,8 @@ class Oneday_class(commands.Cog):
     async def on_ready(self):
         print("Oneday_class Cog is Ready")
 
-    @commands.command(name="원데이클래스")
-    async def restaurant(self, ctx, *args):
+    @commands.command(name="원데이클래스", description='키워드를 입력받아 원데이클래스 정보를 제공합니다.')
+    async def oneday(self, ctx, *args):
         keyword = ' '.join(args)
         url = f"https://taling.me/Home/Search/?query={keyword}"
         headers = {'User-Agent': 'Mozilla/5.0'}
